@@ -9,9 +9,6 @@
 [![Coverage](https://bondarenkoalex.github.io/semantic-release-commits-lint/badge-lines.svg)](https://bondarenkoalex.github.io/semantic-release-commits-lint/)
 [![Coverage](https://bondarenkoalex.github.io/semantic-release-commits-lint/badge-statements.svg)](https://bondarenkoalex.github.io/semantic-release-commits-lint/)
 
-
-
-
 | Step             | Description                                                                                      |
 | ---------------- |--------------------------------------------------------------------------------------------------|
 | `analyzeCommits` | Analyzing commit messages by [commitlint](https://github.com/conventional-changelog/commitlint). |
@@ -36,16 +33,115 @@ The plugin can be configured in the [**semantic-release** configuration file](ht
 
 ## Configuration
 
+### Options
+
+| Options            | Description                         | Default |
+|--------------------|-------------------------------------|---------|
+| `commitlintFile`   | File path of the commitlint config. | -       |
+| `commitlintConfig` | Commitlint config as object.        | -       |
+
 **Notes**: For the plugin to work correctly, you need to configure [commitlint config](https://github.com/conventional-changelog/commitlint?tab=readme-ov-file#config)
 
-#### Example configuration
 
-* Install 
+### Example configuration
+
+#### Configuration globaly in project
+
+1. Install `@commitlint/config-conventional` if need.
+
 ```sh
 npm install @commitlint/config-conventional -D
 ```
 
-* Add config
+2. Add commitlint config file in project
+
+`.commitlintrc.json`
+
+```json
+{
+  "extends": ["@commitlint/config-conventional"],
+  "rules": {
+    "type-case": [2, "always", ["pascal-case"]]
+  }
+}
+```
+
+3. Configuration `semantic-release`
+
+`.releaserc`
+
+```json
+{
+  "plugins": [
+    "semantic-release-commits-lint"
+  ]
+}
+```
+
+#### Configuration by `commitlintFile` option
+
+1. Install `@commitlint/config-conventional` if need.
+
 ```sh
-echo '{"extends": ["@commitlint/config-conventional"]}' > .commitlintrc.json
+npm install @commitlint/config-conventional -D
+```
+
+2. Add commitlint config file in project
+
+`.commitlintrc-for-semantic-release.json`
+
+```json
+{
+  "extends": ["@commitlint/config-conventional"],
+  "rules": {
+    "type-case": [2, "always", ["pascal-case"]]
+  }
+}
+```
+
+3. Configuration `semantic-release`
+
+`.releaserc`
+
+```json
+{
+  "plugins": [
+    [
+      "semantic-release-commits-lint",
+      {
+        "commitlintFile": ".commitlintrc-for-semantic-release.json"
+      }
+    ]
+  ]
+}
+```
+
+#### Configuration by `commitlintConfig` option
+
+1. Install `@commitlint/config-conventional` if need.
+
+```sh
+npm install @commitlint/config-conventional -D
+```
+
+2. Configuration `semantic-release`
+
+`.releaserc`
+
+```json
+{
+  "plugins": [
+    [
+      "semantic-release-commits-lint",
+      {
+        "commitlintConfig": {
+          "extends": ["@commitlint/config-conventional"],
+          "rules": {
+            "type-case": [2, "always", ["pascal-case"]]
+          }
+        }
+      }
+    ]
+  ]
+}
 ```
