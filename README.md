@@ -13,6 +13,10 @@
 | ---------------- |--------------------------------------------------------------------------------------------------|
 | `analyzeCommits` | Analyzing commit messages by [commitlint](https://github.com/conventional-changelog/commitlint). |
 
+## Profit
+
+Does not semantic-release set dist-tag?  Perhaps, you write commit-message not right. This plugin lets to find so error.
+
 ## Install
 
 ```sh
